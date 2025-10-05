@@ -1,7 +1,7 @@
 from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, Path, Request
-from models import Todos
+from models import Todos, Users
 from database import SessionLocal
 from starlette import status
 from pydantic import BaseModel, Field
@@ -48,8 +48,10 @@ async def render_todo_page(request:Request, db: db_dependency):
 
         todos = db.query(Todos).filter(Todos.owner_id==user.get('id')).all()
 
-        return templates.TemplateResponse("todo.html",{"request":request, "todos":todos, "user":user})
-    
+        user_first_name = (db.query(Users).filter(Users.id==user.get('id')).first()).first_name
+
+        return templates.TemplateResponse("todo.html",{"request":request, "todos":todos, "user":user, "user_first_name":user_first_name})
+
     except:
         return redirect_to_login()
 

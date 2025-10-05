@@ -1,37 +1,41 @@
 {% include 'layout.html' %}
 
-<div class="container">
-  <div class="card">
-    <div class="card-header">
-      Let's edit your todo!
+<div class="container my-5">
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-primary text-white text-center">
+      <h5 class="mb-0">✍️ Edit Your Todo</h5>
     </div>
     <div class="card-body">
-      <form id="editTodoForm">
-        <div class="form-group">
-          <label>Title</label>
-          <input type="text" class="form-control" name="title" value="{{todo.title}}" required>
+      <form id="editTodoForm" novalidate>
+        <div class="mb-3">
+          <label for="title" class="form-label fw-semibold">Title</label>
+          <input type="text" id="title" class="form-control" name="title" value="{{todo.title}}" required>
         </div>
-        <div class="form-group">
-          <label>Description</label>
-          <textarea name="description" class="form-control" rows="3" required>{{todo.description}}</textarea>
+
+        <div class="mb-3">
+          <label for="description" class="form-label fw-semibold">Description</label>
+          <textarea id="description" name="description" class="form-control" rows="4" required>{{todo.description}}</textarea>
         </div>
-        <div class="form-group">
-          <label>Priority</label>
-          <select name="priority" class="form-control">
-            <option {% if todo.priority == 1 %} selected="selected" {% endif %}>1</option>
-            <option {% if todo.priority == 2 %} selected="selected" {% endif %}>2</option>
-            <option {% if todo.priority == 3 %} selected="selected" {% endif %}>3</option>
-            <option {% if todo.priority == 4 %} selected="selected" {% endif %}>4</option>
-            <option {% if todo.priority == 5 %} selected="selected" {% endif %}>5</option>
+
+        <div class="mb-3">
+          <label for="priority" class="form-label fw-semibold">Priority</label>
+          <select id="priority" name="priority" class="form-select" aria-label="Select priority">
+            {% for i in range(1,6) %}
+            <option value="{{i}}" {% if todo.priority == i %} selected {% endif %}>{{i}}</option>
+            {% endfor %}
           </select>
         </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" name="complete" {% if todo.complete %} checked {% endif %}>
-          <label class="form-check-label">Complete</label>
+
+        <div class="form-check mb-4">
+          <input type="checkbox" class="form-check-input" id="complete" name="complete" {% if todo.complete %} checked {% endif %}>
+          <label class="form-check-label" for="complete">Mark as Complete</label>
         </div>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-        <button id="deleteButton" type="button" class="btn btn-danger">Delete</button>
-        <a href="/todos/todo-page" class="btn btn-success">Back</a>
+
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+          <button id="deleteButton" type="button" class="btn btn-danger">🗑️ Delete</button>
+          <a href="/todos/todo-page" class="btn btn-secondary">↩️ Back</a>
+        </div>
       </form>
     </div>
   </div>
