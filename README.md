@@ -1,4 +1,4 @@
-# ✅ ToDo App with FastAPI, SQLite, and Bootstrap
+# ToDo App with FastAPI, SQLite, and Bootstrap
 
 A full-stack ToDo application built using **FastAPI**, **SQLite**, and **Bootstrap**, developed as part of the course:
 
